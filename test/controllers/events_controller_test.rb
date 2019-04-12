@@ -11,7 +11,7 @@ class EventsControllerTest < ActionController::TestCase
     end
     test "should show event" do
         get :show, params: {id: @event.id}
-      assert_response :success
+        assert_response :success
     end
     test "should get new event" do
         sign_in users(:one)
