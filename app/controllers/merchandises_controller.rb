@@ -18,6 +18,7 @@ class MerchandisesController < ApplicationController
   def new
     @merchandise = Merchandise.new
   end
+  
   def standardperks
     @merchandise = Merchandise.new
   end
@@ -67,7 +68,7 @@ class MerchandisesController < ApplicationController
     end
 
     def merchandise_params
-      params.require(:merchandise).permit(:name, :user_id, :price, :desc, :itempic, :rttoeditphase,
+        params.require(:merchandise).permit(:name, :user_id, :price, :desc, :itempic, :rttoeditphase,
        :deadline, :youtube, :audio, :video, :graphic, :merchmobi, :merchepub, :merchpdf, :buttontype ,
        :itempic_crop_x, :itempic_crop_y, :itempic_crop_w, :itempic_crop_h)
     end

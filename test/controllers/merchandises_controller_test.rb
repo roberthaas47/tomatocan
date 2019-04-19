@@ -22,8 +22,10 @@ test "should get new if user signed in" do
     assert_response :success
 end
 
+#Fix this
 # test "shouldn't get new if no user signed in" do
 #   get :new
+#   #assert_response :failed
 #   assert_redirected_to session_path
 # end
 
@@ -59,16 +61,19 @@ test "should throw flag after successful merchandise creation" do
     assert_equal 'Patron Perk was successfully created.', flash[:notice]
 end
 
+#Fix this
+test "should throw flag after failed merchandise creation" do
+ 	sign_in users(:one)
+	post :create, params: { merchandise: { name: 'chris', user_id: '1', price: ' ', desc: 'test1', buttontype: 'one' }}
+	#assert_redirected_to :new
+ 	assert_equal 'Your merchandise was not saved. Check the required info (*), filetypes, or character counts.', flash[:notice] 
+end
+
+#Fix this
 # test "should redirect failed merchandise creation attempt" do
 #   sign_in users(:one)
 #   post :create, params: { merchandise: { name: 'chris', user_id: 1, desc: 'test', buttontype: 'Buy' }}
-#   assert_redirected_to :edit
-# end
-
-# test "should throw flag after failed merchandise creation" do
-#   sign_in users(:one)
-#   post :create, params: { merchandise: { name: 'chris', user_id: 1, desc: 'test1', buttontype: 'one' }}
-#   assert_equal 'Your merchandise was not saved. Check the required info (*), filetypes, or character counts.', flash[:notice]
+#   assert_redirected_to :update
 # end
 
 test "should redirect back to merchandise after merchandise updated" do
@@ -83,11 +88,12 @@ test "should throw flag after merchandise updated" do
     assert_equal flash[:notice], 'Patron Perk was successfully updated.'
 end
 
+#fix this
 # test "should redirect failed update attempt" do
 #   sign_in users(:one)
 #   patch :update, params: {id: @merchandise, merchandise: { name: 'chris', user_id: 1, price: 20, buttontype: 'one' }}
-#   assert_redirected_to edit_merchandise_path
-# end
+#    assert_redirected_to edit_merchandise_path
+#end
 
 test "should set merchandise" do
     assert @merchandise.valid?
@@ -98,11 +104,14 @@ test "should set user" do
     assert @user.valid?
 end
 
-# test "should confirm user not signed in as different user" do
-#   sign_in users(:one)
-#   duplicate_user = users(:two)
-#   validates_uniquness_of duplicate_user
-# end
+#fix this
+test "should confirm user not signed in as different user" do
+  sign_in users(:one)
+  first_user = users(:one)
+  duplicate_user = users(:two)
+  assert_not_same(first_user, duplicate_user)
+  #validates_uniquness_of duplicate_user
+end
 
 test "should render correct layout for edit" do
     sign_in users(:one)
@@ -124,5 +133,6 @@ test "should render correct layout for new" do
     get :new
     assert_template 'application'
 end
+
 
 end
