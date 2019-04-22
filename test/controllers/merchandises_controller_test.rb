@@ -26,8 +26,8 @@ end
 # test "shouldn't get new if no user signed in" do
 #   get :new
 #   assert_response :failed
-  #assert_redirected_to session_path
-#end
+#   assert_redirected_to session_path
+# end
 
 test "should get new with merchandise id" do
     sign_in users(:one)
