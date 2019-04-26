@@ -22,13 +22,11 @@ test "should get new if user signed in" do
     assert_response :success
 end
 
-# #Fix this, Shouldn't need this
-test "shouldn't get new if no user signed in" do
-  get :new, params: {id: @merchandise.id}
-  #refute_equal :success
-  #assert_response :failed
-  assert_response :success
-end
+# #Fix this, Doesn't work how its supposed to because code doesn't prevent this
+# test "shouldn't get new if no user signed in" do
+#   get :new, params: {id: @merchandise.id}
+#   assert_response :success
+# end
 
 test "should get new with merchandise id" do
     sign_in users(:one)
@@ -104,7 +102,7 @@ test "should set user" do
     assert @user.valid?
 end
  
-#fix this/done is this needed
+#fix this
 test "should confirm user not signed in as different user" do
   sign_in users(:one)
   first_user = users(:one)
