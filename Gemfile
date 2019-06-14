@@ -3,12 +3,15 @@ ruby "2.6.1"
 
 gem 'listen'
 gem 'rails-controller-testing'
+gem 'capybara-screenshot', :group => :test
 
 gem 'pg'
 #gem 'sqlite3'
 gem	'stripe-ruby-mock', :require => 'stripe_mock'
+gem 'selenium-webdriver'
+gem 'simplecov'
 
-gem 'mandrill'	
+gem 'mandrill'  
 gem 'devise'
 gem 'fog'   #, '1.6.0'
 gem 'unf' 
@@ -19,15 +22,14 @@ gem 'omniauth'
 gem 'omniauth-facebook'
 gem 'koala'
 gem 'will_paginate-bootstrap'
-
 gem 'pry'
 gem 'aws-sdk-s3' #aws-s3'
 gem 'aws-sdk'
 #gem 'event-calendar', :require => 'event_calendar'
-gem 'capybara-screenshot', :group => :test
-gem 'rails', '5.2.0'
-gem 'railties', '5.2.0'
-gem  'bootstrap-sass'
+gem 'rails', '5.2.1'
+gem 'railties', '5.2.1'
+gem  'bootstrap-sass', '~> 3.4.1'
+
 gem 'autoprefixer-rails'
 #gem 'sprockets'
 gem "will_paginate", "~> 3.0.6" 
@@ -45,6 +47,7 @@ group :test, :development do
 #  gem 'factory_girl_rails'
   gem 'capybara'
 #  gem 'mocha', '~> 1.1.0'
+
 end
 
 group :production do

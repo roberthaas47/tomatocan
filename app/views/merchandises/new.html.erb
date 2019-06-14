@@ -30,6 +30,11 @@
   <% end %>
 <% end %>
 
+<% if !current_user.present? %>
+	<meta http-equiv="refresh" content="0,URL='http://www.crowdpublish.tv/login'" />
+<% end %>
+
+
 <div class="row">
     <div class="col-md-12">
         <h1>Create a Reward</h1>

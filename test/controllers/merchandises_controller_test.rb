@@ -182,5 +182,10 @@ test "should render correct layout for new" do
     assert_template 'application'
 end
 
-
+test "try to test deadline" do
+  sign_in users(:one)
+  post :create, params: { merchandise: { name: 'chris', user_id: '1', price: 'hello', desc: 'test', buttontype: 'Buy', deadline: '2019-06-14' }}
+  @deadline = Merchandise.find(params[:deadline])
+  assert_equal Date.today, 'deadline'
+end
 end
