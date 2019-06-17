@@ -161,10 +161,9 @@ test "should set user" do
     assert @user.valid?
 end
 
-test "should render correct layout for edit" do
-    sign_in users(:one)
-    get :edit, params: { id: @merchandise.id }
-    assert_template 'userpgtemplate'
+test "should render correct layout for index" do
+    get :index
+    assert_template 'application'
 end
 
 test "should render correct layout for show" do
@@ -172,14 +171,15 @@ test "should render correct layout for show" do
     assert_template 'userpgtemplate'
 end
 
-test "should render correct layout for index" do
-    get :index
-    assert_template 'application'
-end
-
 test "should render correct layout for new" do
     get :new
     assert_template 'application'
+end
+
+test "should render correct layout for edit" do
+    sign_in users(:one)
+    get :edit, params: { id: @merchandise.id }
+    assert_template 'userpgtemplate'
 end
 
 test "try to test deadline" do
