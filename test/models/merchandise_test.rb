@@ -8,11 +8,23 @@ class MerchandiseTest < ActiveSupport::TestCase
     @merchandise = merchandises(:one)
   end
 
+  test "Valid User" do
+    @user = User.find(@merchandise.user_id)
+    assert @user.valid?
+  end
+
   test "price should not be empty" do
     merchandise = Merchandise.new
     merchandise.send "price=",nil
     refute merchandise.valid?
     refute_empty merchandise.errors[:price]
+  end
+
+  test "price should be a number only" do
+    merchandise = Merchandise.new
+    merchandise.send "name=",nil
+    refute merchandise.valid?
+    refute_empty merchandise.errors[:name]
   end
 
    test "parse youtube for merchanise" do

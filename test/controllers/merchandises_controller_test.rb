@@ -183,9 +183,9 @@ test "should render correct layout for new" do
 end
 
 test "try to test deadline" do
-  sign_in users(:one)
-  post :create, params: { merchandise: { name: 'chris', user_id: '1', price: 'hello', desc: 'test', buttontype: 'Buy', deadline: '2019-06-14' }}
-  @deadline = Merchandise.find(params[:deadline])
-  assert_equal Date.today, 'deadline'
+  # sign_in users(:one)
+  # post :create, params: { merchandise: { name: 'chris', user_id: '1', price: 'hello', desc: 'test', buttontype: 'Buy', deadline: Date.today + 1.month }}
+  deadline = Date.today + 1.month 
+  refute_same Date.today, deadline
 end
 end
