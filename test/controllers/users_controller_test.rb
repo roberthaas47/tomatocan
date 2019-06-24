@@ -2,7 +2,7 @@ require 'test_helper'
 class UsersControllerTest < ActionController::TestCase
   setup do
     @user = users(:one)
-   # sign_in @user
+    sign_in @user
   end
 
   test "should get index" do
@@ -12,7 +12,7 @@ class UsersControllerTest < ActionController::TestCase
 
 
   test "should check index" do
-    sign_in @user
+    #sign_in @user
     assert_equal(@user.id, 1)
   end
   test "should equate youtube field" do

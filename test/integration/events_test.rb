@@ -57,7 +57,7 @@ class EventsTest < ActionDispatch::IntegrationTest
   end
   test "Should sign up and then host a discussion and get redirected to new event page" do
     #signup()
-    click_on('Host A Show')
+    click_on('Host a Livestream Discussion')
     fill_in(id:'event_name', with: 'Intern')
     fill_in(id:'event_desc', with: 'This is a description of the event')
     click_button(id: 'eventSubmit')

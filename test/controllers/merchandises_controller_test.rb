@@ -10,6 +10,11 @@ test "should get index" do
     assert_response :success
 end
 
+test "should check index" do
+    sign_in users(:one)
+    assert_equal(@merchandise.user_id, 1)
+  end
+
 test "should show merchandise" do
     get :show, params: { id: @merchandise.id }
     assert_response :success
