@@ -26,6 +26,12 @@ test "should get new if user signed in" do
     assert_response :success
 end
 
+test "should verify user name" do
+  @user = users(:one)
+    sign_in @user
+    assert_equal(@user.name, "Phineas")
+  end
+
 test "should get new with merchandise id" do
     sign_in users(:one)
     get :new , params: { id: @merchandise.id }
@@ -65,7 +71,7 @@ test "should redirect successful merchandise creation" do
     sign_in users(:one)
     post :create, params: { merchandise: { name: 'chris', user_id: '1', price: '20', desc: 'test1', buttontype: 'one' }}
     assert_redirected_to user_profile_path(users(:one).permalink)
-end
+end 
 
 test "should throw flag after successful merchandise creation" do
     sign_in users(:one)
@@ -185,12 +191,5 @@ test "should render correct layout for edit" do
     sign_in users(:one)
     get :edit, params: { id: @merchandise.id }
     assert_template 'userpgtemplate'
-end
-
-test "try to test deadline" do
-  # sign_in users(:one)
-  # post :create, params: { merchandise: { name: 'chris', user_id: '1', price: 'hello', desc: 'test', buttontype: 'Buy', deadline: Date.today + 1.month }}
-  deadline = Date.today + 1.month 
-  refute_same Date.today, deadline
 end
 end
