@@ -27,10 +27,10 @@ test "should get new if user signed in" do
 end
 
 test "should verify user name" do
-  @user = users(:one)
+    @user = users(:one)
     sign_in @user
     assert_equal(@user.name, "Phineas")
-  end
+end
 
 test "should get new with merchandise id" do
     sign_in users(:one)
@@ -80,51 +80,51 @@ test "should throw flag after successful merchandise creation" do
 end
 
 test "should throw flag for no price" do
-  sign_in users(:one)
-  post :create, params: { merchandise: { name: 'chris', user_id: '1', desc: 'test1', buttontype: 'one' }}
-  assert_equal flash[:notice], 'Your merchandise was not saved. Check the required info (*), filetypes, or character counts.'                                    
+    sign_in users(:one)
+    post :create, params: { merchandise: { name: 'chris', user_id: '1', desc: 'test1', buttontype: 'one' }}
+    assert_equal flash[:notice], 'Your merchandise was not saved. Check the required info (*), filetypes, or character counts.'                                    
 end
 
 test "should redirect failed merchandise creation attempt for no price" do
-  sign_in users(:one)
-  post :create, params: { merchandise: { name: 'chris', user_id: 1, desc: 'test', buttontype: 'Buy' }}
-  assert_template :new
+    sign_in users(:one)
+    post :create, params: { merchandise: { name: 'chris', user_id: 1, desc: 'test', buttontype: 'Buy' }}
+    assert_template :new
 end
 
 test "should throw flag for inputting letters into price" do
-  sign_in users(:one)
-  post :create, params: {merchandise: {name: 'chris', user_id: '1', price: '1g3', desc: 'test1', buttontype: 'Buy'}}
-  assert_equal flash[:notice], 'Your merchandise was not saved. Check the required info (*), filetypes, or character counts.' 
+    sign_in users(:one)
+    post :create, params: {merchandise: {name: 'chris', user_id: '1', price: '1g3', desc: 'test1', buttontype: 'Buy'}}
+    assert_equal flash[:notice], 'Your merchandise was not saved. Check the required info (*), filetypes, or character counts.' 
 end
 
 test "should redirect failed merchandise creation attempt for letters inputted into price" do
-  sign_in users(:one)
-  post :create, params: { merchandise: { name: 'chris', user_id: '1', price: 'hello', desc: 'test', buttontype: 'Buy' }}
-  assert_template :new
+    sign_in users(:one)
+    post :create, params: { merchandise: { name: 'chris', user_id: '1', price: 'hello', desc: 'test', buttontype: 'Buy' }}
+    assert_template :new
 end
 
 test "should throw flag for no name" do
-  sign_in users(:one)
-  post :create, params: { merchandise: { price: '20', user_id: '1', desc: 'test1', buttontype: 'one' }}
-  assert_equal flash[:notice], 'Your merchandise was not saved. Check the required info (*), filetypes, or character counts.'                                    
+    sign_in users(:one)
+    post :create, params: { merchandise: { price: '20', user_id: '1', desc: 'test1', buttontype: 'one' }}
+    assert_equal flash[:notice], 'Your merchandise was not saved. Check the required info (*), filetypes, or character counts.'                                    
 end
 
 test "should redirect failed merchandise creation attempt for no name" do
-  sign_in users(:one)
-  post :create, params: { merchandise: { price: '20', user_id: '1', desc: 'test', buttontype: 'Buy' }}
-  assert_template :new
+    sign_in users(:one)
+    post :create, params: { merchandise: { price: '20', user_id: '1', desc: 'test', buttontype: 'Buy' }}
+    assert_template :new
 end
 
 test "should throw flag for no price and no name" do
-  sign_in users(:one)
-  post :create, params: { merchandise: { user_id: '1', desc: 'test1', buttontype: 'one' }}
-  assert_equal flash[:notice], 'Your merchandise was not saved. Check the required info (*), filetypes, or character counts.'                                    
+    sign_in users(:one)
+    post :create, params: { merchandise: { user_id: '1', desc: 'test1', buttontype: 'one' }}
+    assert_equal flash[:notice], 'Your merchandise was not saved. Check the required info (*), filetypes, or character counts.'                                    
 end
 
 test "should redirect failed merchandise creation attempt for no price and no name" do
-  sign_in users(:one)
-  post :create, params: { merchandise: { user_id: 1, desc: 'test', buttontype: 'Buy' }}
-  assert_template :new
+    sign_in users(:one)
+    post :create, params: { merchandise: { user_id: 1, desc: 'test', buttontype: 'Buy' }}
+    assert_template :new
 end
 
 test "should redirect back to merchandise after merchandise updated" do
@@ -140,27 +140,27 @@ test "should throw flag after merchandise updated" do
 end
 
 test "should redirect failed update attempt with no name" do
-  sign_in users(:one)
-  patch :update, params: {id: @merchandise, merchandise: {name: '', user_id: '1', price: '1', desc: 'test', buttontype: 'Buy'}}
-  assert_template :edit
+    sign_in users(:one)
+    patch :update, params: {id: @merchandise, merchandise: {name: '', user_id: '1', price: '1', desc: 'test', buttontype: 'Buy'}}
+    assert_template :edit
 end
 
 test "should redirect failed update attempt with no price" do
-  sign_in users(:one)
-  patch :update, params: {id: @merchandise, merchandise: {name: 'rob', user_id: '1', price: '', desc: 'test', buttontype: 'Buy'}}
-  assert_template :edit
+    sign_in users(:one)
+    patch :update, params: {id: @merchandise, merchandise: {name: 'rob', user_id: '1', price: '', desc: 'test', buttontype: 'Buy'}}
+    assert_template :edit
 end
 
 test "should redirect failed update attempt for inputting letters into price" do
-  sign_in users(:one)
-  patch :update, params: {id: @merchandise, merchandise: {name: 'rob', user_id: '1', price: 'one', desc: 'test', buttontype: 'Buy'}}
-  assert_template :edit
+    sign_in users(:one)
+    patch :update, params: {id: @merchandise, merchandise: {name: 'rob', user_id: '1', price: 'one', desc: 'test', buttontype: 'Buy'}}
+    assert_template :edit
 end
 
 test "should redirect failed update attempt" do
-  sign_in users(:one)
-  patch :update, params: {id: @merchandise, merchandise: { name: '', user_id: '', price: '', desc: '', buttontype: ''}}
-  assert_template :edit
+    sign_in users(:one)
+    patch :update, params: {id: @merchandise, merchandise: { name: '', user_id: '', price: '', desc: '', buttontype: ''}}
+    assert_template :edit
 end
 
 test "should set merchandise" do
