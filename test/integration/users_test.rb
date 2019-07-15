@@ -12,8 +12,18 @@ class UsersTest < ActionDispatch::IntegrationTest
         click_on(class: 'form-control btn-primary')
     end
 
+    # test "Should_visit_FAQ3" do
+    #     within('div.col-sm-2.col-sm-offset-1') do
+    #         click_on(text: 'FAQ')
+    #     end
+    #     assert_text('accessing my mic or webcam')
+    # end
+
     test "Should_view_profileinfo" do
-        click_on('Discover Talk Show Hosts')
+        click_on(title: 'Browse Hosts')
+        # within('nav.navbar-nav') do
+        #     click_on(class: 'Browse Hosts')
+        # end
         assert_text ('Discussion Hosts')
     end
 
@@ -213,13 +223,6 @@ class UsersTest < ActionDispatch::IntegrationTest
         click_on('Sign out')
         click_on('Host A Show')
         assert_text('You need to sign in or sign up before continuing.')
-    end
-
-    test "Should_visit_FAQ3" do
-        within('div.col-sm-2.col-sm-offset-1') do
-            click_on(text: 'FAQ')
-        end
-        assert_text('accessing my mic or webcam')
     end
 
     test 'Should_see_sign_up_not_logged_in' do
