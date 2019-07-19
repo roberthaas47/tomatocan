@@ -6,7 +6,7 @@ class UsersTest < ActionDispatch::IntegrationTest
     Capybara::Screenshot.autosave_on_failure = false
     setup do
         visit ('/')
-        click_on(class: 'btn-default', match: :first)
+        click_on(class: 'btn-default', match: :first) #sign in
         fill_in(id: 'user_email', with: 'fake@fake.com')
         fill_in(id: 'user_password', with: 'user1234')
         click_on(class: 'form-control btn-primary')
@@ -19,11 +19,19 @@ class UsersTest < ActionDispatch::IntegrationTest
     #     assert_text('accessing my mic or webcam')
     # end
 
-    test "Should_view_profileinfo" do
+    test "Should_view_Discussion_Hosts" do
         within(class: 'collapse navbar-collapse') do
             click_on('Browse Hosts')
         end
-        assert(class: 'col-xs-12') #fix
+        within(class: 'col-xs-12', match: :first) do
+            assert_text('Discussion Hosts')
+        end
+    end
+
+    test "Should_view_profile_info" do
+        within(class: 'dropdown-menu') do
+            click_on('View Profile')
+        end
     end
 
     test "Should_sign_up" do
@@ -35,7 +43,7 @@ class UsersTest < ActionDispatch::IntegrationTest
         fill_in(id:'user_password', with: 'password2', :match => :prefer_exact)
         fill_in(id:'user_password_confirmation', with:'password2')
         click_on(class: 'form-control btn-primary')
-        assert('head') #fix
+        assert page.has_field?(class: 'form-control')
     end
 
     test "Should_sign_up_and_then_out" do
@@ -48,102 +56,104 @@ class UsersTest < ActionDispatch::IntegrationTest
         fill_in(id:'user_password_confirmation', with:'password2')
         click_on(class: 'form-control btn-primary')
         click_on(class: 'btn btn-default', match: :first)
-        assert(class: 'alert') #fix
+        click_on(class: 'btn btn-default')
+        refute_text('Sign out')
     end
 
-    # test "Should_sign_up_and_then_out_and_then_back_in" do
-    #     click_on('Sign out')
-    #     click_on('Sign Up', match: :first)
-    #     fill_in(id:'user_name', with: 'name2')
-    #     fill_in(id:'user_email', with: 'e2@gmail.com')
-    #     fill_in(id:'user_permalink', with:'username2')
-    #     fill_in(id:'user_password', with: 'password2', :match => :prefer_exact)
-    #     fill_in(id:'user_password_confirmation', with:'password2')
-    #     click_on(class: 'form-control btn-primary')
-    #     click_on('Sign out')
-    #     click_on('Sign In')
-    #     fill_in(id:'user_email', with: 'e2@gmail.com')
-    #     fill_in(id:'user_password', with: 'password2', :match => :prefer_exact)
-    #     click_on(class: 'form-control btn-primary')
-    #     assert_text ('Sign out')
-    # end
+    test "Should_sign_up_and_then_out_and_then_back_in" do
+        click_on(class: 'btn btn-default')
+        click_on(class: 'btn btn-primary', match: :first)
+        fill_in(id:'user_name', with: 'name2')
+        fill_in(id:'user_email', with: 'e2@gmail.com')
+        fill_in(id:'user_permalink', with:'username2')
+        fill_in(id:'user_password', with: 'password2', :match => :prefer_exact)
+        fill_in(id:'user_password_confirmation', with:'password2')
+        click_on(class: 'form-control btn-primary')
+        click_on(class: 'btn btn-default', match: :first)
+        click_on(class: 'btn btn-default')
+        fill_in(id:'user_email', with: 'e2@gmail.com')
+        fill_in(id:'user_password', with: 'password2', :match => :prefer_exact)
+        click_on(class: 'form-control btn-primary')
+        refute_text('Sign In')
+    end
 
-    # test "Should_see_edit_profile_in_control_panel" do
-    #     click_on(class: 'dropdown-toggle')
-    #     click_on('Control Panel')
-    #     assert_text('Edit Profile')
-    # end
+    test "Should_see_edit_profile_in_control_panel" do
+        click_on(class: 'dropdown-toggle')
+        click_on('Control Panel')
+        assert page.has_field?(class: 'form-control')
+    end
 
-    # test "Should_change_genre1" do
-    #     click_on(class: 'dropdown-toggle')
-    #     click_on('Control Panel')
-    #     fill_in(id:'user_genre1',with:'Genre1')
-    #     click_on(id:'saveProfileButton',:match => :first)
-    #     assert_text('Genre1')
-    # end
+    test "Should_change_genre1" do
+        click_on(class: 'dropdown-toggle')
+        click_on('Control Panel')
+        fill_in(id:'user_genre1',with:'Genre1')
+        click_on(id:'saveProfileButton',:match => :first)
+        assert_text'Genre1'
+    end
 
-    # test "Should_change_genre2_with_genre1_existing" do
-    #     click_on(class: 'dropdown-toggle')
-    #     click_on('Control Panel')
-    #     fill_in(id:'user_genre1',with:'Genre1')
-    #     fill_in(id:'user_genre2',with:'Genre2')
-    #     click_on(id:'saveProfileButton',:match => :first)
-    #     assert_text('Genre2')
-    # end
+    test "Should_change_genre2_with_genre1_existing" do
+        click_on(class: 'dropdown-toggle')
+        click_on('Control Panel')
+        fill_in(id:'user_genre1',with:'Genre1')
+        fill_in(id:'user_genre2',with:'Genre2')
+        click_on(id:'saveProfileButton',:match => :first)
+        assert_text('Genre2')
+    end
 
-    # test "Should_change_genre3_with_genre1_existing" do
-    #     click_on(class: 'dropdown-toggle')
-    #     click_on('Control Panel')
-    #     fill_in(id:'user_genre1',with:'Genre1')
-    #     fill_in(id:'user_genre3',with:'Genre3')
-    #     click_on(id:'saveProfileButton',:match => :first)
-    #     assert_text('Genre3')
-    # end
+    test "Should_change_genre3_with_genre1_existing" do
+        click_on(class: 'dropdown-toggle')
+        click_on('Control Panel')
+        fill_in(id:'user_genre1',with:'Genre1')
+        fill_in(id:'user_genre3',with:'Genre3')
+        click_on(id:'saveProfileButton',:match => :first)
+        assert_text('Genre3')
+    end
 
-    # test "Should_change_password" do
-    #     click_on(class: 'dropdown-toggle')
-    #     click_on('Control Panel')
-    #     click_on('Account')
-    #     click_on('Change Password')
-    #     fill_in(id:'user_password_confirmation',with: 'password1', :match => :prefer_exact)
-    #     fill_in(id:'user_password', with: 'password1', :match => :prefer_exact)
-    #     click_on("Save Profile")
-    #     click_on('Sign out')
-    #     click_on('Sign In', match: :first)
-    #     fill_in(id:'user_email', with: 'fake@fake.com')
-    #     fill_in(id:'user_password', with: 'password1')
-    #     click_on(class: 'form-control btn-primary')
-    #     assert_text('Offer Rewards & Receive Donations')
-    # end
+    test "Should_change_password" do
+        click_on(class: 'dropdown-toggle')
+        click_on('Control Panel')
+        click_on('Account')
+        click_on(class: 'btn btn-password')
+        fill_in(id:'user_password_confirmation',with: 'password1', :match => :prefer_exact)
+        fill_in(id:'user_password', with: 'password1', :match => :prefer_exact)
+        click_on("commit")
+        click_on(class: 'btn btn-default', match: :first)
+         click_on(class: 'btn btn-default', match: :first)
+        fill_in(id:'user_email', with: 'fake@fake.com')
+        fill_in(id:'user_password', with: 'password1')
+        click_on(class: 'form-control btn-primary')
+        assert_text('Signed in successfully')
+    end
 
-    # test 'Should_fail_change_password' do
-    #     click_on(class: 'dropdown-toggle')
-    #     click_on('Control Panel')
-    #     click_on('Account')
-    #     click_on('Change Password')
-    #     fill_in(id:'user_password_confirmation',with: 'password', :match => :prefer_exact)
-    #     fill_in(id:'user_password', with: 'password1', :match => :prefer_exact)
-    #     click_on("Save Profile")
-    #     assert_text('Passwords do not match')
-    # end
+    test 'Should_fail_change_password' do
+        click_on(class: 'dropdown-toggle')
+        click_on('Control Panel')
+        click_on('Account')
+        click_on(class: 'btn btn-password')
+        fill_in(id:'user_password_confirmation',with: 'password', :match => :prefer_exact)
+        fill_in(id:'user_password', with: 'password1', :match => :prefer_exact)
+        click_on("commit")
+        assert_text('Passwords do not match')
+    end
 
-    # test "Should_change_email" do
-    #     click_on(class: 'dropdown-toggle')
-    #     click_on('Control Panel')
-    #     click_on('Account')
-    #     fill_in(id:'user_email', with: 'e2@mail.com')
-    #     click_on(id:'saveProfileButton',:match => :first)
-    #     assert_text('Videos')
-    # end
+    test "Should_change_email" do
+        click_on(class: 'dropdown-toggle')
+        click_on('Control Panel')
+        click_on('Account')
+        fill_in(id:'user_email', with: 'e2@mail.com')
+        click_on(id:'saveProfileButton',:match => :first)
+        assert_text('Phineas')
+        click_on(class: 'btn btn-lg btn-warning')
+    end
 
-    # test "Should_not_change_email"do
-    #     click_on(class: 'dropdown-toggle')
-    #     click_on('Control Panel')
-    #     click_on('Account')
-    #     fill_in(id:'user_email', with: 'e2')
-    #     click_on(id:'saveProfileButton',:match => :first)
-    #     refute_title('Videos')
-    # end
+    test "Should_not_change_email"do
+        click_on(class: 'dropdown-toggle')
+        click_on('Control Panel')
+        click_on('Account')
+        fill_in(id:'user_email', with: 'e2')
+        click_on(id:'saveProfileButton',:match => :first)
+        assert_text ('Email')#FIX
+    end
 
     # test "Should_show_video" do
     #     click_on('Discover Talk Show Hosts')
