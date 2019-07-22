@@ -143,7 +143,6 @@ class UsersTest < ActionDispatch::IntegrationTest
             fill_in(id:'user_email', with: 'e2@mail.com')
             click_on(id:'saveProfileButton',:match => :first)
         end
-        refute_text('Current Rewards')
         click_on(class: 'btn btn-lg btn-warning')
     end
 
@@ -158,10 +157,11 @@ class UsersTest < ActionDispatch::IntegrationTest
         click_on(id:'saveProfileButton',:match => :first)  
     end
 
-    # test "Should_show_video" do
-    #     click_on('Discover Talk Show Hosts')
-    #     assert_text('Phineas')
-    # end
+    test "Should_show_video" do
+        click_on('Browse Hosts')
+        assert_text('Discussion Hosts') #Try to find a better way to test this
+        click_on('Phineas')
+    end
 
     # test "Should_not_show_video" do
     #     click_on('Discover Talk Show Hosts')
