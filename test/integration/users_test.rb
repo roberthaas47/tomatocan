@@ -160,26 +160,25 @@ class UsersTest < ActionDispatch::IntegrationTest
     test "Should_show_video" do
         click_on('Browse Hosts')
         assert_text('Discussion Hosts') #Try to find a better way to test this
-        click_on('Phineas')
     end
-
+    #   #This needs a better test
     # test "Should_not_show_video" do
     #     click_on('Discover Talk Show Hosts')
     #     refute_title('name2')
     # end
 
-    # test "Should_not_show_other_controlpanel" do
-    #     visit('http://localhost:3000/user1/controlpanel')
-    #     refute_title('Edit Profile')
-    # end
+    test "Should_not_show_other_controlpanel" do
+        visit('http://localhost:3000/user1/controlpanel')
+        refute_title('Edit Profile')
+    end
 
     # #These tests are in progress
-    # test 'Should_see_product' do
-    #     click_on('Sign out')
-    #     click_on('Discover Talk Show Hosts')
-    #     click_link('Phineas')
-    #     assert_text('user1 product')
-    # end
+    test 'Should_see_product' do
+        click_on(class: 'btn btn-default') #sign out
+        click_on('Browse Hosts')
+        click_link('Phineas')
+        assert_text('user1 product')
+    end
 
     # test 'Should_change_name' do
     #     click_on(class: 'dropdown-toggle')
