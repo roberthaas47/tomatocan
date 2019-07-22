@@ -139,20 +139,23 @@ class UsersTest < ActionDispatch::IntegrationTest
     test "Should_change_email" do
         click_on(class: 'dropdown-toggle')
         click_on('Control Panel')
-        click_on('Account')
-        fill_in(id:'user_email', with: 'e2@mail.com')
-        click_on(id:'saveProfileButton',:match => :first)
-        assert_text('Phineas')
+        within(id: 'accountTab') do
+            fill_in(id:'user_email', with: 'e2@mail.com')
+            click_on(id:'saveProfileButton',:match => :first)
+        end
+        refute_text('Current Rewards')
         click_on(class: 'btn btn-lg btn-warning')
     end
 
     test "Should_not_change_email"do
         click_on(class: 'dropdown-toggle')
         click_on('Control Panel')
-        click_on('Account')
-        fill_in(id:'user_email', with: 'e2')
-        click_on(id:'saveProfileButton',:match => :first)
-        assert_text ('Email')#FIX
+        within(id: 'accountTab') do
+            fill_in(id:'user_email', with: 'e2')
+            click_on(id:'saveProfileButton',:match => :first)    
+        end
+        refute_text('Current Rewards')
+        click_on(id:'saveProfileButton',:match => :first)  
     end
 
     # test "Should_show_video" do
