@@ -118,7 +118,7 @@ class UsersTest < ActionDispatch::IntegrationTest
         fill_in(id:'user_password', with: 'password1', :match => :prefer_exact)
         click_on("commit")
         click_on(class: 'btn btn-default', match: :first)
-         click_on(class: 'btn btn-default', match: :first)
+        click_on(class: 'btn btn-default', match: :first)
         fill_in(id:'user_email', with: 'fake@fake.com')
         fill_in(id:'user_password', with: 'password1')
         click_on(class: 'form-control btn-primary')
